@@ -55,16 +55,13 @@ public class GameManager : MonoBehaviour
         Debug.Log("GameManager confirms Task Completed!");
     }
 
-    // Link this to your Reset Button
     public void ResetScene()
     {
-        // This reloads the entire level, resetting everything.
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void RestartTask()
     {
-        // 1. Reset the timer and counts
         timer = 0f;
         UpdateTimerUI();
 
@@ -72,18 +69,13 @@ public class GameManager : MonoBehaviour
         remainingText.text = "Objects Remaining: " + objectsRemaining.ToString();
         isTaskActive = true;
 
-        // 2. Teleport the pieces
         AutoReturn[] puzzlePieces = FindObjectsOfType<AutoReturn>();
         foreach (AutoReturn piece in puzzlePieces)
         {
             piece.ResetObjectPosition();
         }
 
-        // THE MAGIC LINE: Force Unity to update all colliders INSTANTLY 
-        // so the sockets don't accidentally grab the objects back!
         Physics.SyncTransforms();
-
-        // 3. Reset Sockets
         PuzzleSocket[] allSockets = FindObjectsOfType<PuzzleSocket>();
         foreach (PuzzleSocket socket in allSockets)
         {
