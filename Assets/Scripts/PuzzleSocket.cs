@@ -14,7 +14,6 @@ public class PuzzleSocket : MonoBehaviour
 
     void Start()
     {
-        // Remember the transparent material for when we hit Restart
         defaultMaterial = GetComponent<MeshRenderer>().material;
     }
 
@@ -33,12 +32,11 @@ public class PuzzleSocket : MonoBehaviour
                 isSolved = true;
 
                 Rigidbody rb = other.GetComponent<Rigidbody>();
-                if (rb != null) rb.isKinematic = true; // Freeze gravity
+                if (rb != null) rb.isKinematic = true; 
 
                 other.transform.position = transform.position;
                 other.transform.rotation = transform.rotation;
 
-                // SAFELY DISABLE ALL GRABBING (Instead of Destroying)
                 MonoBehaviour[] scripts = other.GetComponentsInChildren<MonoBehaviour>();
                 foreach (MonoBehaviour s in scripts)
                 {
@@ -55,7 +53,6 @@ public class PuzzleSocket : MonoBehaviour
         }
     }
 
-    // GameManager will call this when you click Restart
     public void ResetSocket()
     {
         isSolved = false;
